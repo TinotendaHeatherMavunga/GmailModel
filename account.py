@@ -8,13 +8,15 @@ class Account:
     def __init__(self, firstname, lastname, gender, username, password):
         with open("accounts.csv", "r") as file_handler:
             reader = csv.DictReader(file_handler)
+            user_available = True
             for user in reader:
                 if user["username"] == username:
+                    user_available = False
                     try:
-                        return ValueError
+                        raise ValueError
                     except ValueError:
-                        return "Sorry, that username is taken!"
-            else:
+                        print("Sorry, that username is taken!")
+            if user_available:
                 hashed = bcrypt.hashpw(
                     password.encode("utf-8"), bcrypt.gensalt())
                 self.firstname = firstname
