@@ -44,8 +44,7 @@ class Account:
 
         # if username is available and passwords match
         if user_available:
-            hashed = bcrypt.hashpw(
-                password.encode("utf-8"), bcrypt.gensalt())
+            hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
             self.firstname = firstname
             self.lastname = lastname
             self.phone = phone
