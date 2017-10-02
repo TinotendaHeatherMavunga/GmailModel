@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 firstname,lastname,gender,username,password
 fir,las,M,nam,b'$2b$12$5ZgPjISHnUjfZaunLn4l..hvG84E4iOWneqG3D2AhP/
 Eyram,Amedzor,M,eyramm,b'$2b$12$iKQncmevi83r0u/5cxSOs.ub4q4mpeznF4N8R6JGwiC3ZAdiGRjK.'
+=======
+firstname,lastname,phone,recovery_email,gender,username,password,logged_in,email_address
+djj,hjhj,jhjh,jhjh,h,gh,b'$2b$12$bqm7AA.r66mOLGQpElsMt.YilpQ7yyfmK1zoGOn.Uk.FAl30dvvZq',False,gh@gmail.com
+Tu,Mo,11,gjhlg,j,djj,b'$2b$12$dEwrdHIjV6ZYpD7lsR4Gv.LK46XsVrDArf4vCID0i5z0iU.wQGYre',False,djj@gmail.com
+>>>>>>> 79f39caac02056169b943e48a8685767bbdd28f8
