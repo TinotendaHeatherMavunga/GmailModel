@@ -9,7 +9,7 @@ print("#################################")
 print("\n\n")
 
 choice = input("1. Sign Up \n2. Login \n")
-user_account = None
+# user_account = None
 gmail = Gmail()
 
 while True:
