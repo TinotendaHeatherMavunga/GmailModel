@@ -43,3 +43,26 @@ class Account:
                     if os.path.getsize("accounts.csv") == 0:
                         writer.writeheader()
                     writer.writerow(self.__dict__)
+    
+    #testing signing
+    def signin(self):
+        with open ('accounts.csv','r') as file_handler:
+            checker = csv.DictReader(file_handler)
+            loguser = input('Enter Username: ')
+            logpass = input('Enter password: ')
+            logpass = bcrypt.hashpw(
+                    logpass.encode("utf-8"), bcrypt.gensalt())
+
+
+            for user in checker:
+                if loguser == user['username']:
+                    print("Username correct")
+
+                else:
+                    print("Username incorrect")
+                    break
+
+
+a = Account('Eyram','Amedzor','M','eyramm','kofi1234')
+
+a.signin()
