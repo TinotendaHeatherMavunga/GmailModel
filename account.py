@@ -75,3 +75,40 @@ class Account:
             if os.path.getsize("accounts.csv") == 0:
                 writer.writeheader()
             writer.writerow(self.__dict__)
+
+    @classmethod
+    def login(cls):
+        with open("accounts.csv", "r")as file:
+            user_data = csv.DictReader(file)
+
+            username = input("Enter username: ")
+            password = input("Enter password: ")
+            for user in user_data:
+                if user["username"] == username:
+                    if bcrypt.checkpw(password.encode(
+                            "utf-8"), user["password"]):
+                        existing_user = UserAccount(**user)
+                        existing_user["logged_in"] = True
+                        return existing_user
+                    else:
+                        print("Wrong password")
+                else:
+                    print("Username not found")
+
+# UserAccount class creates a user object from accounts.csv iff
+# Account.login succeeds
+
+
+class UserAccount():
+
+    def __init__(self, firstname, lastname, phone, recovery_email,
+                 gender, username, password, logged_in, email_address):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.phone = phone
+        self.recovery_email = recovery_email
+        self.gender = gender
+        self.username = username
+        self.password = hashed
+        self.logged_in = False
+        self.email_address = email_address
