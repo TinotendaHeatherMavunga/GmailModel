@@ -4,14 +4,6 @@ import datetime
 
 
 class Gmail:
-<<<<<<< HEAD
-    pass
-
-
-    # viewmessage: username, message and timestamp
-    def viewmessage(username,message,timestamp):
-    	return username + me
-=======
 
     def __init__(self):
         self.user_inbox = []
@@ -30,7 +22,7 @@ class Gmail:
                 print('Message sent successfully to {}'.format(to_email))
 
         except Exception as e:
-            print('Sorry email was not sent, Try again', e)
+            print('Sorry email was not sent, Try again.', 'Error Message: ',e)
 
     def compose_email(self, user):
         subject = input('Please enter subject: ')
@@ -50,4 +42,6 @@ class Gmail:
 
         else:
             raise Exception('{} is not logged in.'.format(user.username))
->>>>>>> 79f39caac02056169b943e48a8685767bbdd28f8
+
+    def view_mesasge(self,index,inbox):
+    	pass
