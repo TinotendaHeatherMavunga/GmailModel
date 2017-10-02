@@ -44,20 +44,3 @@ class Account:
                     if os.path.getsize("accounts.csv") == 0:
                         writer.writeheader()
                     writer.writerow(self.__dict__)
-
-#
-# new_account = CreateAccount() # first name, last name, email, username, password, gender, logged_in=False
-# existing_account = Account(username, password) # check if account exists, if it exists, do existing_account.login()
-# existing_account.logged_in
-# self.logged_in = self.login(username, password)
-# if self.logged_in:
-#     self.account = get_user()
-#     self.firstname = self.account['firstname']
-#     self.lastname
-#     self.email
-#     self.username
-#     self.password
-#     self.gender
-# gmail = Gmail()
-# if existing_account.logged_in:
-#     gmail.inbox(existing_account)
