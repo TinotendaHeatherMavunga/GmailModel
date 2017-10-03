@@ -82,29 +82,30 @@ class Account:
 
             username = input("Enter username: ")
             password = input("Enter password: ")
-            hash_check = bcrypt.hashpw(
-                password.encode("utf-8"), bcrypt.gensalt())
-
             password_match = False
             user_found = False
             for user in user_data:
                 if user["username"] == username:
                     user_found = True
-                    if hash_check == user["password"]:
+                    user["password"] = user["password"][2:-1].encode("utf-8")
+                    print(user)
+                    if bcrypt.checkpw(password.encode(
+                            "utf-8"), user["password"]):
                         password_match = True
                         existing_user = UserAccount(**user)
-                        existing_user["logged_in"] = True
+                        existing_user.logged_in = True
                         return existing_user
             if not user_found:
                 print("User not found!!")
-            if not password_match:
-                print("Sorry Passwords do not match!!")
+            else:
+                if not password_match:
+                    print("Sorry Passwords do not match!!")
 
 # UserAccount class creates a user object from accounts.csv iff
 # Account.login succeeds
 
 
-class UserAccount():
+class UserAccount:
 
     def __init__(self, firstname, lastname, phone, recovery_email,
                  gender, username, password, logged_in, email_address):
@@ -114,6 +115,6 @@ class UserAccount():
         self.recovery_email = recovery_email
         self.gender = gender
         self.username = username
-        self.password = hashed
+        self.password = password
         self.logged_in = False
         self.email_address = email_address
