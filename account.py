@@ -77,22 +77,28 @@ class Account:
 
     @classmethod
     def login(cls):
-        with open("accounts.csv", "r") as file:
+        with open("accounts.csv", "r")as file:
             user_data = csv.DictReader(file)
 
             username = input("Enter username: ")
             password = input("Enter password: ")
-            hashh = bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
+            hash_check = bcrypt.hashpw(
+                password.encode("utf-8"), bcrypt.gensalt())
+
+            password_match = False
+            user_found = False
             for user in user_data:
                 if user["username"] == username:
-                    if hashh == user["password"]:
+                    user_found = True
+                    if hash_check == user["password"]:
+                        password_match = True
                         existing_user = UserAccount(**user)
                         existing_user["logged_in"] = True
                         return existing_user
-                    else:
-                        print("Wrong password")
-                else:
-                    print("Username not found")
+            if not user_found:
+                print("User not found!!")
+            if not password_match:
+                print("Sorry Passwords do not match!!")
 
 # UserAccount class creates a user object from accounts.csv iff
 # Account.login succeeds
