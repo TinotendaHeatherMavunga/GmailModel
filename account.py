@@ -97,9 +97,10 @@ class Account:
                         return existing_user
             if not user_found:
                 print("User not found!!")
-            else:
-                if not password_match:
-                    print("Sorry Passwords do not match!!")
+                return None
+            elif not password_match:
+                print("Sorry Passwords do not match!!")
+                return None
 
 # UserAccount class creates a user object from accounts.csv iff
 # Account.login succeeds
