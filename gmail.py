@@ -1,47 +1,62 @@
 import smtplib
+import os
 import csv
 import datetime
 
 
 class Gmail:
 
-    def __init__(self):
-        self.user_inbox = []
-        pass
+    user_inbox = []
 
-    def send_email(self, to_email, msg, subject, user):
+    def __init__(self):
+        print('############################')
+        print('#######    Gmail   #########')
+        print('############################')
+
+    def send_email(cls, to_email, msg, subject, user):
         to_address = to_email
         subject = subject
-        msg = 'Subject: {}\n\n{}'.format(subject, msg)
+        msg = '{}'.format(subject, msg)
 
         try:
+            has_header = False
+            with open('messages.csv', 'r') as f:
+                for line in f:
+                    if len(line)>=1:
+                        has_header = True
+                        break
+                    else:
+                        pass
             with open('messages.csv', 'a') as file:
-                messages = csv.DictWriter(file, fieldnames=['from', 'to', 'message', 'timestamp'])
-                messages.writerow({'from': user.email, 'to': to_address, 'message': msg, 'timestamp': datetime.datetime.now() })
+                messages = csv.DictWriter(file, fieldnames=['from', 'to', 'message', 'subject', 'timestamp'])
+                if not has_header:
+                    messages.writeheader()
+                messages.writerow({'from': user.email_address, 'to': to_address, 'subject': subject, 'message': msg, 'timestamp': datetime.datetime.now() })
 
                 print('Message sent successfully to {}'.format(to_email))
 
         except Exception as e:
             print('Sorry email was not sent, Try again.', 'Error Message: ',e)
 
-    def compose_email(self, user):
+    def compose_email(cls, user):
         subject = input('Please enter subject: ')
         message = input("Compose new message here: ")
         to = input('Enter email address: ')
-        self.send_email(to, message, subject, user)
+        cls.send_email(to, message, subject, user)
 
-    def inbox(self, user):
-        if user.logged_in():
+    def inbox(cls, user):
+        if user.logged_in:
             with open('messages.csv', 'r') as file:
-                messages = csv.DictReader(file, fieldnames=['message', 'from', 'to', 'timestamp'])
+                messages = csv.DictReader(file, fieldnames=['from', 'to', 'message', 'subject', 'timestamp'])
                 for message in messages:
-                    if message['to'] == user['email']:
-                        self.user_inbox.append(message)
+                    # print(message)
+                    if message['to'] == user.email_address:
+                        cls.user_inbox.append(message)
 
-            return self.user_inbox
+            return cls.user_inbox
 
         else:
             raise Exception('{} is not logged in.'.format(user.username))
 
-    def view_mesasge(self,index,inbox):
+    def view_mesasge(cls,index,inbox):
         pass
