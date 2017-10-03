@@ -6,41 +6,114 @@ import bcrypt
 class Account:
     # Account constructor method - instantiates a new Account object
 
-    def __init__(self, firstname, lastname, gender, username, password):
+    def __init__(self):
 
-        # reads accounts.csv to check if username is available
-        with open("accounts.csv", "r") as file_handler:
-            reader = csv.DictReader(file_handler)
+        # Take in user input for the Account fields
+        print("Welcome to GMail, Please enter the following details")
+        firstname = input("Enter first name: ")
+        lastname = input("Enter last name: ")
+        phone = input("Enter your phone number: ")
+        recovery_email = input("Enter recovery email: ")
+        gender = input("Enter gender: ")
+
+        while True:
+            username = input("Enter your username: ")
+            password = input("Enter your password: ")
+            confirm_password = input("Re-Enter your password: ")
             user_available = True
-            for user in reader:
+
+            # check if passwords match
+            if password == confirm_password:
+
+                # check accounts.csv if username is available
+                with open("accounts.csv", "r") as data_file:
+                    user_data = csv.DictReader(data_file)
+                    for user in user_data:
+                        if user["username"] == username:
+                            user_available = False
+                            try:
+                                raise ValueError
+                            except ValueError:
+                                print("Sorry, the username already exists")
+                                break
+                if user_available:
+                    break
+            else:
+                print("Sorry, passwords do not match, try again!")
+                continue
+
+        # if username is available and passwords match
+        if user_available:
+            hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+            self.firstname = firstname
+            self.lastname = lastname
+            self.phone = phone
+            self.recovery_email = recovery_email
+            self.gender = gender
+            self.username = username
+            self.password = hashed
+            self.logged_in = False
+            self.email_address = "{}@gmail.com".format(self.username)
+        self.write_account()
+
+    # writes the new object to accounts.csv
+    def write_account(self):
+        with open("accounts.csv", "a") as file_handler:
+            fieldnames = [
+                "firstname",
+                "lastname",
+                "phone",
+                "recovery_email",
+                "gender",
+                "username",
+                "password",
+                "logged_in",
+                "email_address"]
+            writer = csv.DictWriter(
+                file_handler, fieldnames=fieldnames)
+            if os.path.getsize("accounts.csv") == 0:
+                writer.writeheader()
+            writer.writerow(self.__dict__)
+
+    @classmethod
+    def login(cls):
+        with open("accounts.csv", "r")as file:
+            user_data = csv.DictReader(file)
+
+            username = input("Enter username: ")
+            password = input("Enter password: ")
+            hash_check = bcrypt.hashpw(
+                password.encode("utf-8"), bcrypt.gensalt())
+
+            password_match = False
+            user_found = False
+            for user in user_data:
                 if user["username"] == username:
-                    user_available = False
-                    try:
-                        raise ValueError
-                    except ValueError:
-                        print("Sorry, that username is taken!")
+                    user_found = True
+                    if hash_check == user["password"]:
+                        password_match = True
+                        existing_user = UserAccount(**user)
+                        existing_user["logged_in"] = True
+                        return existing_user
+            if not user_found:
+                print("User not found!!")
+            if not password_match:
+                print("Sorry Passwords do not match!!")
 
-            # if username is available
-            if user_available:
-                hashed = bcrypt.hashpw(
-                    password.encode("utf-8"), bcrypt.gensalt())
-                self.firstname = firstname
-                self.lastname = lastname
-                self.gender = gender
-                self.username = username
-                self.password = hashed
+# UserAccount class creates a user object from accounts.csv iff
+# Account.login succeeds
 
-                # writes the new object to accounts.csv
-                # This should be broken out into its own method, please
-                with open("accounts.csv", "a") as file_handler:
-                    fieldnames = [
-                        "firstname",
-                        "lastname",
-                        "gender",
-                        "username",
-                        "password"]
-                    writer = csv.DictWriter(
-                        file_handler, fieldnames=fieldnames)
-                    if os.path.getsize("accounts.csv") == 0:
-                        writer.writeheader()
-                    writer.writerow(self.__dict__)
+
+class UserAccount():
+
+    def __init__(self, firstname, lastname, phone, recovery_email,
+                 gender, username, password, logged_in, email_address):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.phone = phone
+        self.recovery_email = recovery_email
+        self.gender = gender
+        self.username = username
+        self.password = hashed
+        self.logged_in = False
+        self.email_address = email_address

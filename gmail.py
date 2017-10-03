@@ -22,7 +22,7 @@ class Gmail:
                 print('Message sent successfully to {}'.format(to_email))
 
         except Exception as e:
-            print('Sorry email was not sent, Try again', e)
+            print('Sorry email was not sent, Try again.', 'Error Message: ',e)
 
     def compose_email(self, user):
         subject = input('Please enter subject: ')
@@ -42,3 +42,6 @@ class Gmail:
 
         else:
             raise Exception('{} is not logged in.'.format(user.username))
+
+    def view_mesasge(self,index,inbox):
+    	pass
