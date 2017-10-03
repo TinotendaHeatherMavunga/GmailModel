@@ -1,6 +1,7 @@
 import csv
 import os
 import bcrypt
+import getpass
 
 
 class Account:
@@ -18,8 +19,8 @@ class Account:
 
         while True:
             username = input("Enter your username: ")
-            password = input("Enter your password: ")
-            confirm_password = input("Re-Enter your password: ")
+            password = getpass.getpass("Enter your password: ")
+            confirm_password = getpass.getpass("Re-Enter your password: ")
             user_available = True
 
             # check if passwords match
@@ -44,8 +45,7 @@ class Account:
 
         # if username is available and passwords match
         if user_available:
-            hashed = bcrypt.hashpw(
-                password.encode("utf-8"), bcrypt.gensalt())
+            hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
             self.firstname = firstname
             self.lastname = lastname
             self.phone = phone
@@ -82,24 +82,30 @@ class Account:
             user_data = csv.DictReader(file)
 
             username = input("Enter username: ")
-            password = input("Enter password: ")
+            password = getpass.getpass("Enter password: ")
+            password_match = False
+            user_found = False
             for user in user_data:
                 if user["username"] == username:
+                    user_found = True
+                    user["password"] = user["password"][2:-1].encode("utf-8")
                     if bcrypt.checkpw(password.encode(
                             "utf-8"), user["password"]):
+                        password_match = True
                         existing_user = UserAccount(**user)
-                        existing_user["logged_in"] = True
+                        existing_user.logged_in = True
                         return existing_user
-                    else:
-                        print("Wrong password")
-                else:
-                    print("Username not found")
+            if not user_found:
+                print("User not found!!")
+            else:
+                if not password_match:
+                    print("Sorry Passwords do not match!!")
 
 # UserAccount class creates a user object from accounts.csv iff
 # Account.login succeeds
 
 
-class UserAccount():
+class UserAccount:
 
     def __init__(self, firstname, lastname, phone, recovery_email,
                  gender, username, password, logged_in, email_address):
@@ -109,6 +115,6 @@ class UserAccount():
         self.recovery_email = recovery_email
         self.gender = gender
         self.username = username
-        self.password = hashed
+        self.password = password
         self.logged_in = False
         self.email_address = email_address
