@@ -1,0 +1,4 @@
+firstname,lastname,phone,recovery_email,gender,username,password,logged_in,email_address
+ff,ff,ff,ff,ff,ff,b'$2b$12$cxCOer2lDfrI11mYOzXjwO7XFI5dUBaBeKUirrw1LNFxnavEB4pbS',False,ff@gmail.com
+fname,lname,445,recover,f,f,b'$2b$12$stvrocOjkCD7FQ/rSHrSMup4IlfcOsQ4er7pra9Zp.AVbpwicMZtm',False,f@gmail.com
+gg,gg,gg,gg,gg,gg,b'$2b$12$tJI.TUqrxkTG15CcILhuUO53vmPULWALY4VdQ3wDv7jWjlds9HNIW',False,gg@gmail.com

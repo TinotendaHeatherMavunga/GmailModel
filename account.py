@@ -1,6 +1,7 @@
 import csv
 import os
 import bcrypt
+import getpass
 
 
 class Account:
@@ -18,8 +19,8 @@ class Account:
 
         while True:
             username = input("Enter your username: ")
-            password = input("Enter your password: ")
-            confirm_password = input("Re-Enter your password: ")
+            password = getpass.getpass("Enter your password: ")
+            confirm_password = getpass.getpass("Re-Enter your password: ")
             user_available = True
 
             # check if passwords match
@@ -81,14 +82,13 @@ class Account:
             user_data = csv.DictReader(file)
 
             username = input("Enter username: ")
-            password = input("Enter password: ")
+            password = getpass.getpass("Enter password: ")
             password_match = False
             user_found = False
             for user in user_data:
                 if user["username"] == username:
                     user_found = True
                     user["password"] = user["password"][2:-1].encode("utf-8")
-                    print(user)
                     if bcrypt.checkpw(password.encode(
                             "utf-8"), user["password"]):
                         password_match = True
