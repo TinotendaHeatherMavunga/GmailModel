@@ -49,7 +49,6 @@ class Gmail:
             with open('messages.csv', 'r') as file:
                 messages = csv.DictReader(file, fieldnames=['from', 'to', 'message', 'subject', 'timestamp'])
                 for message in messages:
-                    # print(message)
                     if message['to'] == user.email_address:
                         cls.user_inbox.append(message)
 
