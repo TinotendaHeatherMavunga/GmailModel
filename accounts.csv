@@ -1,0 +1,7 @@
+firstname,lastname,phone,recovery_email,gender,username,password,logged_in,email_address
+1,1,1,1,1,1,b'$2b$12$vFKXAO2vQOdPqU.zqypCou2zcCC2x8cxpcmBqN8NK3MkjDZ80YF.K',False,1@gmail.com
+2,2,2,2,2,2,b'$2b$12$GEkXBi12bWHq.jddLAhiYebou0u0wJTxxa283PlslH5F3RwsugjR2',False,2@gmail.com
+3,3,3,3,3,3,b'$2b$12$8ZMciE66b7qQu8tdw3TH2e3g.5ACk2/ACneajfWaAZPD05uB8/9h.',False,3@gmail.com
+4,4,4,4,4,4,b'$2b$12$zAwrFz9yjY7ar0zhJYdkieU7d/tnvlxcRvCGXVhgKk9euFwMSYIbK',False,4@gmail.com
+5,5,5,5,5,5,b'$2b$12$9HmoWWal0cAEgR.TEaSLU.ZEoXsIN9KqTwAQTdPQueAhimD6kZpPW',False,5@gmail.comEyram,Amedzor,020,none,none,eyram,b'$2b$12$rOQzceeX2oMzsHJCOtl/Tuw/pPyyiwMCgIrI1mixcDowCSJXCmPCu',False,eyram@gmail.com
+Eyram,Amedzor,020,none,none,eyram,b'$2b$12$ugOJDnpiGsWta4cs2NQSd.E25T34xLLKl/VoungM4jNIyab8HjhPu',False,eyram@gmail.com

@@ -20,7 +20,7 @@ while True:
                     if int(choice3) == -1:
                         pass
                     else:
-                        print(inbx[int(choice3)])
+                        print(gmail.view_message(int(choice3),inbx))
                 elif choice2 == '2':
                     #to_email, msg, subject, user
                     t = input('To: ')
