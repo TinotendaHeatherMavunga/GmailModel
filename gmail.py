@@ -44,4 +44,4 @@ class Gmail:
             raise Exception('{} is not logged in.'.format(user.username))
 
     def view_mesasge(self,index,inbox):
-    	pass
+        pass
