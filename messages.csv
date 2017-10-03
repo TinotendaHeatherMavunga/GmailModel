@@ -1,0 +1,4 @@
+from,to,message,subject,timestamp
+sasogeek@gmail.com,some@gmail.com,hello,hello,2017-10-03 15:02:36.671352
+sasogeek@gmail.com,someone@gmail.com,world,world,2017-10-03 15:02:57.011830
+sasogeek@gmail.com,sasogeek@gmail.com,hello world,hello world,2017-10-03 15:05:48.222369
